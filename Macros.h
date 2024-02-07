@@ -1,0 +1,7 @@
+
+
+#if LIBRARY_COMPILING
+#define  PUBLIC_LIB EXPORT
+#else
+#define  PUBLIC_LIB IMPORT
+#endif

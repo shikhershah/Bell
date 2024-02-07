@@ -1,7 +1,7 @@
 #ifndef APPEVENT_H
 #define APPEVENT_H
 
-#include "Bell/Events/Event.h"
+#include "Event.h"
 
 
 namespace Bell
@@ -13,7 +13,7 @@ namespace Bell
 
       public:
          
-         WindowResizeEvent(unsigned int width, unsigned int height)
+         WindowResize(unsigned int width, unsigned int height)
             : WindowWidth(width), WindowHeight(height) {}
 
          unsigned int GetWidth() const 

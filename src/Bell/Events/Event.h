@@ -1,7 +1,8 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-
+#include <string>
+#include <sstream>
 
 namespace Bell
 {
@@ -21,19 +22,19 @@ namespace Bell
    {
 
       None = 0,
-      Application = BIT(0)
-      Input = BIT(1),
-      Mouse = BIT(2),
-      MouseButton = BIT(3),
-      Keyboard = BIT(4)
+      Application,
+      Input,
+      Mouse,
+      MouseButton,
+      Keyboard
    };
 
 
    #define EVENT_CLASS_Function(function) static EventFunction GetStaticFunction() { return EventFunction::function; }\
 								virtual EventFunction GetEventFunction() const override { return GetStaticFunction(); }\
-								virtual const char* GetName() const override { return #function; }
+								virtual const char* GetEventName() const override { return #function; }
 
-   #define EVENT_CLASS_Type(type) virtual int GetTypeFlag() const override { return type; }
+   #define EVENT_CLASS_Type(type) virtual int GetEventTypeFlag() const override { return type; }
 
 
 
@@ -44,10 +45,10 @@ namespace Bell
 
          bool Handled = false;
    
-         virtual GetEventFunction() const = 0;
+         virtual EventFunction  GetEventFunction() const = 0;
          virtual const char* GetEventName() const = 0;
-         virtual GetEventTypeFlag() const = 0;
-         virtual std::string ToString() { return GetEventName();}
+         virtual int GetEventTypeFlag() const = 0;
+         virtual std::string ToString() const  { return GetEventName();}
 
          bool IsEventType(EventType type)
          {
@@ -68,9 +69,9 @@ namespace Bell
          template<typename T, typename F>
          bool Dispatch(const F& func)
          {
-            if(m_Event.GetEventFunction() == T.GetStaticType())
+            if(m_Event.GetEventFunction() == T::GetStaticType())
             {
-               m_Event.Handled |= func(stat-c_cast<T&>(m_Event));
+               m_Event.Handled |= func(static_cast<T&>(m_Event));
                return true;
             }
             return false;

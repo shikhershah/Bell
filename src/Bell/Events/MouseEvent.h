@@ -1,90 +1,48 @@
 #ifndef MOUSEEVENT_H
 #define MOUSEEVENT_H
 
+#include "Event.h"
+
+
 namespace Bell
 {
 
-   class KeyEvent : public Event
+   class MouseMove : public Event
    {
-   
-      private:
 
-         KeyEvent(const KeyCode keycode)
-            : m_keycode(keycode) {};
-
-         KeyCode m_keycode;
+   private:
+      float  m_MouseX, m_MouseY;
 
 
-      public:
+   public:
 
-         EVENT_CLASS_Type(KeyBoard | Input);
+      MouseMove(const float x, const float y): m_MouseX(x), m_MouseY(y){}
 
+      float GetX() const { return m_MouseX};
+      float GetY() const { return m_MouseY}; 
 
-   };
-
-   class KeyPress : public KeyEvent
-   {
-      private:
-         bool m_isrepeat;
-
-      public:
-
-      KeyPress(const KeyCode keycode, bool IsRepeat = false) 
-         : KeyEvent(keycode), m_isrepeat(IsRepeat) {};
-
-      bool IsRepeat() const 
+      std::string ToString() const  override 
       {
-         return m_isrepeat;
-      }
 
-      std::string ToString() const override
-      {
          std::stringstream ss;
-         ss << "KeyPress: " << m_keycode << "(repeat = " << m_isrepeat << ")";
-
+         ss << "MouseMoved x:" << m_MouseX << " y: " << m_MouseY;
          return ss.str();
       }
 
-      EVENT_CLASS_Function(KeyPress);
+      EVENT_CLASS_Function(MouseMove);
+      EVENT_CLASS_Type(Mouse);
 
-   };
+   }
 
-   class KeyRelease : public KeyEvent
+
+   class MousePress : public Event
    {
-      public:
 
-         KeyRelease(const KeyCode keycode)
-            : KeyEvent(keycode);
+   public:
 
-         std::string ToString() const override
-         {
-            std::stringstream ss;
-            ss << "Keyrelease: " << m_keycode;
 
-            return ss.str();
-         }
 
-         EVENT_CLASS_Function(KeyRelease);
-   };
-
-   class KeyType : public KeyEvent
-   {
-      public:
-
-         KeyType(const KeyCode keycode)
-            : KeyEvent(keycode);
-
-         std::string ToString() const override
-         {
-            std::stringstream ss;
-            ss << "KeyType: " << m_keycode;
-
-            return ss.str();
-         }
-
-         EVENT_CLASS_Function(KeyType);
-   };
+   }
 
 }
-
 #endif //MOUSEEVENT_H
