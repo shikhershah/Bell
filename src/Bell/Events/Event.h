@@ -22,7 +22,7 @@ namespace Bell
    {
 
       None = 0,
-      Application,
+      App,
       Input,
       Mouse,
       MouseButton,

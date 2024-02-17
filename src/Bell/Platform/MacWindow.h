@@ -28,7 +28,7 @@ namespace Bell
             uint32_t Height;
 
             bool VSync;
-           // EventCallbackFn EventCallback;
+            EventCallbackFn EventCallback;
          };
 
          WindowData windowData;
@@ -44,9 +44,10 @@ namespace Bell
          uint32_t GetHeight() const override { return windowData.Height; };
 
          //Window Attributes 
-         
-         //void SetVSync(bool Enabled) override;
-         //void IsVSync() const override;
+         void SetEventCallback(const EventCallbackFn& callback) override { windowData.EventCallback = callback; }
+		
+         void SetVSync(bool Enabled) override;
+         bool IsVSync() const override;
    };
 
 

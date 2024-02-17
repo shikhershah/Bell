@@ -34,7 +34,7 @@ namespace Bell
          }
 
          EVENT_CLASS_Function(WindowResize);
-         EVENT_CLASS_Type(Application);
+         EVENT_CLASS_Type(App);
    };
 
    class WindowClose : public Event
@@ -43,7 +43,7 @@ namespace Bell
       WindowClose() = default;
    
       EVENT_CLASS_Function(WindowClose);
-      EVENT_CLASS_Type(Application);
+      EVENT_CLASS_Type(App);
 
 
    };
@@ -53,7 +53,7 @@ namespace Bell
       AppTick() = default;
 
       EVENT_CLASS_Function(AppTick);
-      EVENT_CLASS_Type(Application);
+      EVENT_CLASS_Type(App);
 
    };
 
@@ -62,7 +62,7 @@ namespace Bell
       AppUpdate() = default;
 
       EVENT_CLASS_Function(AppUpdate);
-      EVENT_CLASS_Type(Application);
+      EVENT_CLASS_Type(App);
    };
 
    class AppRender : public Event
@@ -70,7 +70,7 @@ namespace Bell
       AppRender() = default;
 
       EVENT_CLASS_Function(AppRender);
-      EVENT_CLASS_Type(Application);
+      EVENT_CLASS_Type(App);
    };
 
 

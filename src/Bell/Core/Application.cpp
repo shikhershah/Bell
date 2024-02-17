@@ -8,7 +8,7 @@
 
 //#include "External/glfw/include/GLFW/glfw3.h"
 
-
+#define BELL_BIND_EVENT(x) std::bind(&x, std::placeholders::_1)
 
 namespace Bell
 {
@@ -17,57 +17,26 @@ namespace Bell
    Application::Application()
    {
       m_window = Window::Create();
+      m_window->SetEventCallback(BELL_BIND_EVENT(Application::);
    }
 
    Application::~Application()
    {
    }
 
-   void Application::CreateWindow()
-   {
-    GLFWwindow* window;
-
-    /* Initialize the library */
-    if (!glfwInit())
-        exit (EXIT_FAILURE);
-
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-         exit (EXIT_FAILURE);
-    }
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
-    {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
-    }
-
-    glfwTerminate();
-    exit (EXIT_SUCCESS);
-
-
-   }
-
+ 
    void Application::Run()
    {
 
       WindowResize e (100,100);
       Engine_TRACE(e);
-     // CreateWindow();
-      while(true);
+      //CreateWindow();
+      while(true)
+      {
+         glClearColor(1,0,1,1);
+         glClear(GL_COLOR_BUFFER_BIT);
+         m_window->OnUpdate();
+      }
   
    }
 

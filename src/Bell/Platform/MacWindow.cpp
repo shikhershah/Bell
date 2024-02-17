@@ -44,19 +44,9 @@ namespace Bell
 
       /* Make the window's context current */
       glfwMakeContextCurrent(m_window);
-       /* Loop until the user closes the window */
-      while (!glfwWindowShouldClose(m_window))
-      {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(m_window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
-      }
-
+      SetVSync(true);
+    
+      glfwSetWindowSizeCallback(m_window, 
 
    }
 
@@ -75,6 +65,18 @@ namespace Bell
    {
       glfwPollEvents();
       glfwSwapBuffers(m_window);
+   }
+
+   void MacWindow::SetVSync(bool Enabled)
+   {
+      if(Enabled)
+         glfwSwapInterval(1); // wait time for swapping buffers and returning
+   }
+
+   bool MacWindow::IsVSync() const
+   {
+      return windowData.VSync;
+
    }
 
 }

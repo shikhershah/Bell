@@ -2,6 +2,7 @@
 #define APPLICATION_H
 
 #include "../Platform/MacWindow.h"
+#include "../Events/Event.h"
 
 namespace Bell
 {
@@ -14,8 +15,10 @@ namespace Bell
       public:
       Application();
       virtual ~Application();
-      void CreateWindow();
+      
       void Run();
+      void OnEvent(Event &e);
+
    };
 
    
