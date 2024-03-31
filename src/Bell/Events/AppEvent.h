@@ -6,14 +6,14 @@
 
 namespace Bell
 {
-   class WindowResize : public Event
+   class WindowResizeEvent : public Event
    {
       private:
          unsigned int WindowWidth, WindowHeight;
 
       public:
          
-         WindowResize(unsigned int width, unsigned int height)
+         WindowResizeEvent(unsigned int width, unsigned int height)
             : WindowWidth(width), WindowHeight(height) {}
 
          unsigned int GetWidth() const 
@@ -37,10 +37,11 @@ namespace Bell
          EVENT_CLASS_Type(App);
    };
 
-   class WindowClose : public Event
+   class WindowCloseEvent : public Event
    {
+      public:
      
-      WindowClose() = default;
+      WindowCloseEvent() = default;
    
       EVENT_CLASS_Function(WindowClose);
       EVENT_CLASS_Type(App);
@@ -48,26 +49,29 @@ namespace Bell
 
    };
 
-   class AppTick : public Event
+   class AppTickEvent : public Event
    {
-      AppTick() = default;
+      public:
+      AppTickEvent() = default;
 
       EVENT_CLASS_Function(AppTick);
       EVENT_CLASS_Type(App);
 
    };
 
-   class AppUpdate : public Event
+   class AppUpdateEvent : public Event
    {
-      AppUpdate() = default;
+      public:
+      AppUpdateEvent() = default;
 
       EVENT_CLASS_Function(AppUpdate);
       EVENT_CLASS_Type(App);
    };
 
-   class AppRender : public Event
+   class AppRenderEvent : public Event
    {
-      AppRender() = default;
+      public:
+      AppRenderEvent() = default;
 
       EVENT_CLASS_Function(AppRender);
       EVENT_CLASS_Type(App);

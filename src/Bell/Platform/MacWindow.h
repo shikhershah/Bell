@@ -1,9 +1,10 @@
 #ifndef MACWINDOW_H
 #define MACWINDOW_H
 
-#include "/Users/shikhershah/Projects/GameEngine/Bell/External/glfw/include/GLFW/glfw3.h"
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
-#include "../Core/Window.h"
+#include "Bell/Core/Window.h"
 
 
 namespace Bell
@@ -12,8 +13,7 @@ namespace Bell
 
    class MacWindow : public Window
    {
-
-
+      
       private:
 
          virtual void Init(const WindowProperties& props);

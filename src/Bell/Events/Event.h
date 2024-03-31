@@ -3,6 +3,8 @@
 
 #include <string>
 #include <sstream>
+#include <functional>
+
 
 namespace Bell
 {
@@ -69,7 +71,7 @@ namespace Bell
          template<typename T, typename F>
          bool Dispatch(const F& func)
          {
-            if(m_Event.GetEventFunction() == T::GetStaticType())
+            if(m_Event.GetEventFunction() == T::GetStaticFunction())
             {
                m_Event.Handled |= func(static_cast<T&>(m_Event));
                return true;

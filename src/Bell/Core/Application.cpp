@@ -1,14 +1,15 @@
 #include <stdlib.h>
+#include <functional>
 
 #include "Application.h"
-#include "../Events/AppEvent.h"
 #include "Logging.h"
 
-#include "/Users/shikhershah/Projects/GameEngine/Bell/External/glfw/include/GLFW/glfw3.h"
+#include "GLFW/glfw3.h"
+
 
 //#include "External/glfw/include/GLFW/glfw3.h"
 
-#define BELL_BIND_EVENT(x) std::bind(&x, std::placeholders::_1)
+#define BELL_BIND_EVENT(x) std::bind(&x,this ,std::placeholders::_1)
 
 namespace Bell
 {
@@ -17,7 +18,7 @@ namespace Bell
    Application::Application()
    {
       m_window = Window::Create();
-      m_window->SetEventCallback(BELL_BIND_EVENT(Application::);
+      m_window->SetEventCallback(BELL_BIND_EVENT(Application::OnEvent));
    }
 
    Application::~Application()
@@ -28,10 +29,10 @@ namespace Bell
    void Application::Run()
    {
 
-      WindowResize e (100,100);
-      Engine_TRACE(e);
+     // WindowResize e (100,100);
+     // Engine_TRACE(e);
       //CreateWindow();
-      while(true)
+      while(m_Running)
       {
          glClearColor(1,0,1,1);
          glClear(GL_COLOR_BUFFER_BIT);
@@ -40,5 +41,35 @@ namespace Bell
   
    }
 
+   void Application::OnEvent(Event& e)
+   {
 
+      EventDispatcher Dispatcher(e);
+      Dispatcher.Dispatch<WindowCloseEvent>(BELL_BIND_EVENT(Application::OnWindowClose));
+
+      Engine_TRACE("{0}", e);
+
+
+   }
+
+   void Application::PushStack(Layer* layer)
+   {
+
+      app_LayerStack.PushLayer(layer);
+      layer->OnAttach();
+   }
+
+   void Application::PushOverlay(Layer* layer)
+   {
+      app_LayerStack.PushOverlay(layer);
+      layer->OnAttach();
+   }
+
+   bool Application::OnWindowClose(WindowCloseEvent& e)
+   {
+      m_Running = false;
+
+      return true;
+   }
+   
 }

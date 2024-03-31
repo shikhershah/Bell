@@ -1,8 +1,11 @@
+#ifndef WINDOW_H
+#define WINDOW_H 
 
 #include <memory>
-#include <string>
+#include <sstream>
+#include <functional>
 
-#include "../Events/Event.h"
+#include "Bell/Events/Event.h"
 
 
 namespace Bell
@@ -51,3 +54,5 @@ namespace Bell
    };
 
 }
+
+#endif //WINDOW_H

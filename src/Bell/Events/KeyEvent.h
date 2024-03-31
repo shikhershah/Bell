@@ -8,33 +8,38 @@ namespace Bell
 
    class KeyEvent : public Event
    {
-   
+      protected:
+         int m_keycode;
+
+         KeyEvent (int keyCode) : m_keycode(keyCode){};   
       private:
 
-         KeyEvent(const KeyCode keycode)
-            : m_keycode(keycode) {};
+        // KeyEvent(const KeyCode keycode): m_keycode(keycode) {};
 
-         KeyCode m_keycode;
-
+         //KeyCode m_keycode;
+         inline int GetKeyCode() const
+         {
+            return m_keycode;
+         }
 
       public:
 
-         EVENT_CLASS_Type(KeyBoard | Input);
+         EVENT_CLASS_Type(Keyboard | Input);
 
 
    };
 
-   class KeyPress : public KeyEvent
+   class KeyPressEvent : public KeyEvent
    {
       private:
          bool m_isrepeat;
 
       public:
 
-      KeyPress(const KeyCode keycode, bool IsRepeat = false) 
-         : KeyEvent(keycode), m_isrepeat(IsRepeat) {};
+      KeyPressEvent(int keyCode, bool isRepeat = false) 
+         : KeyEvent(keyCode), m_isrepeat(isRepeat) {};
 
-      bool IsRepeat() const 
+      inline bool GetisRepeat() const 
       {
          return m_isrepeat;
       }
@@ -51,12 +56,12 @@ namespace Bell
 
    };
 
-   class KeyRelease : public KeyEvent
+   class KeyReleaseEvent : public KeyEvent
    {
       public:
 
-         KeyRelease(const KeyCode keycode)
-            : KeyEvent(keycode);
+         KeyReleaseEvent(int keyCode)
+            : KeyEvent(keyCode) {};
 
          std::string ToString() const override
          {
@@ -69,12 +74,12 @@ namespace Bell
          EVENT_CLASS_Function(KeyRelease);
    };
 
-   class KeyType : public KeyEvent
+   class KeyTypeEvent : public KeyEvent
    {
       public:
 
-         KeyType(const KeyCode keycode)
-            : KeyEvent(keycode);
+         KeyTypeEvent(int keyCode)
+            : KeyEvent(keyCode) {};
 
          std::string ToString() const override
          {

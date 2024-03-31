@@ -1,8 +1,12 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include "../Platform/MacWindow.h"
-#include "../Events/Event.h"
+
+#include "LayerStack.h"
+#include "Bell/Platform/MacWindow.h"
+#include "Bell/Events/Event.h"
+#include "Bell/Events/AppEvent.h"
+
 
 namespace Bell
 {
@@ -10,14 +14,22 @@ namespace Bell
    class Application
    {
       private:
+
+         bool m_Running = true;
          std::unique_ptr<Window> m_window;
 
+         bool OnWindowClose(WindowCloseEvent& e);
+
       public:
-      Application();
-      virtual ~Application();
+         Application();
+         virtual ~Application();
       
-      void Run();
-      void OnEvent(Event &e);
+         void Run();
+         void OnEvent(Event &e);
+
+         LayerStack app_LayerStack;
+         void PushStack(Layer* layer);
+         void PushOverlay(Layer* layer);
 
    };
 
