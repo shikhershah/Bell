@@ -48,6 +48,9 @@ namespace Bell
 		
          void SetVSync(bool Enabled) override;
          bool IsVSync() const override;
+
+
+         virtual void* GetNativeWindow() const override { return m_window; }
    };
 
 

@@ -48,6 +48,12 @@ namespace Bell
          exit(EXIT_FAILURE);
 
       glfwSetErrorCallback(GLFWErrorCallback);
+
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+      glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
       m_window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), NULL, NULL);
       Engine_TRACE("Window Created");
 
@@ -60,8 +66,10 @@ namespace Bell
       /* Make the window's context current */
       glfwMakeContextCurrent(m_window);
       glfwSetWindowUserPointer(m_window, &windowData);
-      //initialize GLAD: load al OpenGL functions
+      //initialize GLAD: load all OpenGL functions
       int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+
+      Engine_INFO(GLFW_OPENGL_CORE_PROFILE);
 
       SetVSync(true);
     

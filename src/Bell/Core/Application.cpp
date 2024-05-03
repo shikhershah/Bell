@@ -7,18 +7,21 @@
 #include "GLFW/glfw3.h"
 
 
-//#include "External/glfw/include/GLFW/glfw3.h"
-
 #define BELL_BIND_EVENT(x) std::bind(&x,this ,std::placeholders::_1)
 
 namespace Bell
 {
-
+   Application* Application::Instance = nullptr;
 
    Application::Application()
    {
+      Instance = this;
+
       m_window = Window::Create();
       m_window->SetEventCallback(BELL_BIND_EVENT(Application::OnEvent));
+
+      imGuiLayer = new ImGuiLayer();
+      PushOverlay(imGuiLayer);
    }
 
    Application::~Application()
@@ -36,7 +39,13 @@ namespace Bell
       {
          glClearColor(1,0,1,1);
          glClear(GL_COLOR_BUFFER_BIT);
+         
+         imGuiLayer->Begin();
+
+         imGuiLayer->End();
+
          m_window->OnUpdate();
+
       }
   
    }

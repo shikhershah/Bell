@@ -50,7 +50,7 @@ namespace Bell
 
          static std::unique_ptr<Window> Create(const WindowProperties& props = WindowProperties());
 
-
+         virtual void* GetNativeWindow() const = 0;
    };
 
 }
