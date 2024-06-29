@@ -360,7 +360,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>This is the function pointer type for mouse button callback functions. A mouse button callback function has the following signature: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> function_name(<a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>* window, <span class="keywordtype">int</span> button, <span class="keywordtype">int</span> action, <span class="keywordtype">int</span> mods)</div>
-<div class="ttc" id="agroup__window_html_ga3c96d80d363e67d13a41b5d1821f3242"><div class="ttname"><a href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a></div><div class="ttdeci">struct GLFWwindow GLFWwindow</div><div class="ttdoc">Opaque window object.</div><div class="ttdef"><b>Definition</b> glfw3.h:1195</div></div>
+<div class="ttc" id="agroup__window_html_ga3c96d80d363e67d13a41b5d1821f3242"><div class="ttname"><a href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a></div><div class="ttdeci">struct GLFWwindow GLFWwindow</div><div class="ttdoc">Opaque window object.</div><div class="ttdef"><b>Definition</b> glfw3.h:1403</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>The window that received the event. </td></tr>
@@ -473,7 +473,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>The window that received the event. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">key</td><td>The <a class="el" href="group__keys.html">keyboard key</a> that was pressed or released. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">scancode</td><td>The system-specific scancode of the key. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">scancode</td><td>The platform-specific scancode of the key. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">action</td><td><code>GLFW_PRESS</code>, <code>GLFW_RELEASE</code> or <code>GLFW_REPEAT</code>. Future releases may add more actions. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">mods</td><td>Bit field describing which <a class="el" href="group__mods.html">modifier keys</a> were held down.</td></tr>
   </table>
@@ -690,11 +690,12 @@ Functions</h2></td></tr>
 <li><code>GLFW_CURSOR_NORMAL</code> makes the cursor visible and behaving normally.</li>
 <li><code>GLFW_CURSOR_HIDDEN</code> makes the cursor invisible when it is over the content area of the window but does not restrict the cursor from leaving.</li>
 <li><code>GLFW_CURSOR_DISABLED</code> hides and grabs the cursor, providing virtual and unlimited cursor movement. This is useful for implementing for example 3D camera controls.</li>
+<li><code>GLFW_CURSOR_CAPTURED</code> makes the cursor visible and confines it to the content area of the window.</li>
 </ul>
 <p>If the mode is <code>GLFW_STICKY_KEYS</code>, the value must be either <code>GLFW_TRUE</code> to enable sticky keys, or <code>GLFW_FALSE</code> to disable it. If sticky keys are enabled, a key press will ensure that <a class="el" href="group__input.html#gadd341da06bc8d418b4dc3a3518af9ad2">glfwGetKey</a> returns <code>GLFW_PRESS</code> the next time it is called even if the key had been released before the call. This is useful when you are only interested in whether keys have been pressed but not when or in which order.</p>
 <p>If the mode is <code>GLFW_STICKY_MOUSE_BUTTONS</code>, the value must be either <code>GLFW_TRUE</code> to enable sticky mouse buttons, or <code>GLFW_FALSE</code> to disable it. If sticky mouse buttons are enabled, a mouse button press will ensure that <a class="el" href="group__input.html#gac1473feacb5996c01a7a5a33b5066704">glfwGetMouseButton</a> returns <code>GLFW_PRESS</code> the next time it is called even if the mouse button had been released before the call. This is useful when you are only interested in whether mouse buttons have been pressed but not when or in which order.</p>
 <p>If the mode is <code>GLFW_LOCK_KEY_MODS</code>, the value must be either <code>GLFW_TRUE</code> to enable lock key modifier bits, or <code>GLFW_FALSE</code> to disable them. If enabled, callbacks that receive modifier bits will also have the <a class="el" href="group__mods.html#gaefeef8fcf825a6e43e241b337897200f">GLFW_MOD_CAPS_LOCK</a> bit set when the event was generated with Caps Lock on, and the <a class="el" href="group__mods.html#ga64e020b8a42af8376e944baf61feecbe">GLFW_MOD_NUM_LOCK</a> bit when Num Lock was on.</p>
-<p>If the mode is <code>GLFW_RAW_MOUSE_MOTION</code>, the value must be either <code>GLFW_TRUE</code> to enable raw (unscaled and unaccelerated) mouse motion when the cursor is disabled, or <code>GLFW_FALSE</code> to disable it. If raw motion is not supported, attempting to set this will emit <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>. Call <a class="el" href="group__input.html#gae4ee0dbd0d256183e1ea4026d897e1c2">glfwRawMouseMotionSupported</a> to check for support.</p>
+<p>If the mode is <code>GLFW_RAW_MOUSE_MOTION</code>, the value must be either <code>GLFW_TRUE</code> to enable raw (unscaled and unaccelerated) mouse motion when the cursor is disabled, or <code>GLFW_FALSE</code> to disable it. If raw motion is not supported, attempting to set this will emit <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a>. Call <a class="el" href="group__input.html#gae4ee0dbd0d256183e1ea4026d897e1c2">glfwRawMouseMotionSupported</a> to check for support.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>The window whose input mode to set. </td></tr>
@@ -703,7 +704,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#ga76f6bb9c4eea73db675f096b404593ce">GLFW_INVALID_ENUM</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#ga76f6bb9c4eea73db675f096b404593ce">GLFW_INVALID_ENUM</a>, <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> and <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a> (see above).</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__input.html#gaf5b859dbe19bdf434e42695ea45cc5f4">glfwGetInputMode</a></dd></dl>
 <dl class="section since"><dt>Since</dt><dd>Added in version 3.0. Replaces <code>glfwEnable</code> and <code>glfwDisable</code>. </dd></dl>
@@ -1019,8 +1020,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> This function will only work when the cursor mode is <code>GLFW_CURSOR_DISABLED</code>, otherwise it will do nothing.</dd></dl>
+<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> and <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a> (see remarks).</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> This function will only work when the cursor mode is <code>GLFW_CURSOR_DISABLED</code>, otherwise it will emit <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a>.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="input_guide.html#cursor_pos">Cursor position</a> </dd>
 <dd>
@@ -1099,7 +1100,35 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns a cursor with a <a class="el" href="group__shapes.html">standard shape</a>, that can be set for a window with <a class="el" href="group__input.html#gad3b4f38c8d5dae036bc8fa959e18343e">glfwSetCursor</a>.</p>
+<p>Returns a cursor with a standard shape, that can be set for a window with <a class="el" href="group__input.html#gad3b4f38c8d5dae036bc8fa959e18343e">glfwSetCursor</a>. The images for these cursors come from the system cursor theme and their exact appearance will vary between platforms.</p>
+<p>Most of these shapes are guaranteed to exist on every supported platform but a few may not be present. See the table below for details.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Cursor shape   </th><th class="markdownTableHeadNone">Windows   </th><th class="markdownTableHeadNone">macOS   </th><th class="markdownTableHeadNone">X11   </th><th class="markdownTableHeadNone">Wayland    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#ga8ab0e717245b85506cb0eaefdea39d0a">GLFW_ARROW_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#ga36185f4375eaada1b04e431244774c86">GLFW_IBEAM_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#ga8af88c0ea05ab9e8f9ac1530e8873c22">GLFW_CROSSHAIR_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#gaad01a50929fb515bf27e4462c51f6ed0">GLFW_POINTING_HAND_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#ga2010a43dc1050a7c9154148a63cf01ad">GLFW_RESIZE_EW_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#gaa59214e8cdc8c8adf08fdf125ed68388">GLFW_RESIZE_NS_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#gadf2c0a495ec9cef4e1a364cc99aa78da">GLFW_RESIZE_NWSE_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes<sup>1</sup>   </td><td class="markdownTableBodyNone">Maybe<sup>2</sup>   </td><td class="markdownTableBodyNone">Maybe<sup>2</sup>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#gab06bba3b407f92807ba9b48de667a323">GLFW_RESIZE_NESW_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes<sup>1</sup>   </td><td class="markdownTableBodyNone">Maybe<sup>2</sup>   </td><td class="markdownTableBodyNone">Maybe<sup>2</sup>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#ga3a5f4811155f95ccafbbb4c9a899fc1d">GLFW_RESIZE_ALL_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a class="el" href="group__shapes.html#ga297c503095b034bc8891393b637844b1">GLFW_NOT_ALLOWED_CURSOR</a>   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Maybe<sup>2</sup>   </td><td class="markdownTableBodyNone">Maybe<sup>2</sup>   </td></tr>
+</table>
+<p>1) This uses a private system API and may fail in the future.</p>
+<p>2) This uses a newer standard that not all cursor themes support.</p>
+<p>If the requested shape is not available, this function emits a <a class="el" href="group__errors.html#ga09d6943923a70ddef3a085f5baee786c">GLFW_CURSOR_UNAVAILABLE</a> error and returns <code>NULL</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">shape</td><td>One of the <a class="el" href="group__shapes.html">standard shapes</a>. </td></tr>
@@ -1107,9 +1136,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new cursor ready to use or <code>NULL</code> if an <a class="el" href="intro_guide.html#error_handling">error</a> occurred.</dd></dl>
-<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#ga76f6bb9c4eea73db675f096b404593ce">GLFW_INVALID_ENUM</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#ga76f6bb9c4eea73db675f096b404593ce">GLFW_INVALID_ENUM</a>, <a class="el" href="group__errors.html#ga09d6943923a70ddef3a085f5baee786c">GLFW_CURSOR_UNAVAILABLE</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="input_guide.html#cursor_object">Cursor objects</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="input_guide.html#cursor_standard">Standard cursor creation</a> </dd>
 <dd>
 <a class="el" href="group__input.html#ga556f604f73af156c0db0e97c081373c3">glfwCreateCursor</a></dd></dl>
 <dl class="section since"><dt>Since</dt><dd>Added in version 3.1. </dd></dl>
@@ -1539,7 +1568,6 @@ Functions</h2></td></tr>
 <dl class="section user"><dt>Callback signature</dt><dd><div class="fragment"><div class="line"><span class="keywordtype">void</span> function_name(<a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>* window, <span class="keywordtype">int</span> path_count, <span class="keyword">const</span> <span class="keywordtype">char</span>* paths[])</div>
 </div><!-- fragment --> For more information about the callback parameters, see the <a class="el" href="group__input.html#gaaba73c3274062c18723b7f05862d94b2">function pointer type</a>.</dd></dl>
 <dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>.</dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> File drop is currently unimplemented.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="input_guide.html#path_drop">Path drop input</a></dd></dl>
 <dl class="section since"><dt>Since</dt><dd>Added in version 3.1. </dd></dl>
@@ -2094,6 +2122,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><b>Windows:</b> The clipboard on Windows has a single global lock for reading and writing. GLFW tries to acquire it a few times, which is almost always enough. If it cannot acquire the lock then this function emits <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> and returns. It is safe to try this multiple times.</dd></dl>
 <dl class="section user"><dt>Pointer lifetime</dt><dd>The specified string is copied before this function returns.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="input_guide.html#clipboard">Clipboard input and output</a> </dd>
@@ -2127,6 +2156,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The contents of the clipboard as a UTF-8 encoded string, or <code>NULL</code> if an <a class="el" href="intro_guide.html#error_handling">error</a> occurred.</dd></dl>
 <dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#ga196e125ef261d94184e2b55c05762f14">GLFW_FORMAT_UNAVAILABLE</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><b>Windows:</b> The clipboard on Windows has a single global lock for reading and writing. GLFW tries to acquire it a few times, which is almost always enough. If it cannot acquire the lock then this function emits <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> and returns. It is safe to try this multiple times.</dd></dl>
 <dl class="section user"><dt>Pointer lifetime</dt><dd>The returned string is allocated and freed by GLFW. You should not free it yourself. It is valid until the next call to <a class="el" href="group__input.html#ga71a5b20808ea92193d65c21b82580355">glfwGetClipboardString</a> or <a class="el" href="group__input.html#gaba1f022c5eb07dfac421df34cdcd31dd">glfwSetClipboardString</a>, or until the library is terminated.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="input_guide.html#clipboard">Clipboard input and output</a> </dd>
@@ -2153,7 +2183,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>This function returns the current GLFW time, in seconds. Unless the time has been set using <a class="el" href="group__input.html#gaf59589ef6e8b8c8b5ad184b25afd4dc0">glfwSetTime</a> it measures time elapsed since GLFW was initialized.</p>
 <p>This function and <a class="el" href="group__input.html#gaf59589ef6e8b8c8b5ad184b25afd4dc0">glfwSetTime</a> are helper functions on top of <a class="el" href="group__input.html#ga3289ee876572f6e91f06df3a24824443">glfwGetTimerFrequency</a> and <a class="el" href="group__input.html#ga09b2bd37d328e0b9456c7ec575cc26aa">glfwGetTimerValue</a>.</p>
-<p>The resolution of the timer is system dependent, but is usually on the order of a few micro- or nanoseconds. It uses the highest-resolution monotonic time source on each supported platform.</p>
+<p>The resolution of the timer is system dependent, but is usually on the order of a few micro- or nanoseconds. It uses the highest-resolution monotonic time source on each operating system.</p>
 <dl class="section return"><dt>Returns</dt><dd>The current time, in seconds, or zero if an <a class="el" href="intro_guide.html#error_handling">error</a> occurred.</dd></dl>
 <dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function may be called from any thread. Reading and writing of the internal base time is not atomic, so it needs to be externally synchronized with calls to <a class="el" href="group__input.html#gaf59589ef6e8b8c8b5ad184b25afd4dc0">glfwSetTime</a>.</dd></dl>
@@ -2248,7 +2278,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <address class="footer">
 <p>
-Last update on Thu Dec 14 2023 for GLFW 3.3.9
+Last update on Fri Feb 23 2024 for GLFW 3.4.0
 </p>
 </address>
 </body>

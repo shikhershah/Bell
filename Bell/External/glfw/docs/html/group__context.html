@@ -210,7 +210,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#gaa8290386e9528ccb9e42a3a4e16fc0d0">GLFW_NO_CURRENT_CONTEXT</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd>This function is not called during context creation, leaving the swap interval set to whatever is the default on that platform. This is done because some swap interval extensions used by GLFW do not allow the swap interval to be reset to zero once it has been set to a non-zero value.</dd>
+<dl class="section remark"><dt>Remarks</dt><dd>This function is not called during context creation, leaving the swap interval set to whatever is the default for that API. This is done because some swap interval extensions used by GLFW do not allow the swap interval to be reset to zero once it has been set to a non-zero value.</dd>
 <dd>
 Some GPU drivers do not honor the requested swap interval, either because of a user setting that overrides the application's request or due to bugs in the driver.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function may be called from any thread.</dd></dl>
@@ -297,7 +297,7 @@ This function may return a non-<code>NULL</code> address despite the associated 
 </div><!-- contents -->
 <address class="footer">
 <p>
-Last update on Thu Dec 14 2023 for GLFW 3.3.9
+Last update on Fri Feb 23 2024 for GLFW 3.4.0
 </p>
 </address>
 </body>

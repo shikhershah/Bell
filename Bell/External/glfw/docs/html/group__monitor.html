@@ -170,7 +170,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>This is the function pointer type for monitor configuration callbacks. A monitor callback function has the following signature: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> function_name(<a class="code hl_typedef" href="group__monitor.html#ga8d9efd1cde9426692c73fe40437d0ae3">GLFWmonitor</a>* monitor, <span class="keywordtype">int</span> event)</div>
-<div class="ttc" id="agroup__monitor_html_ga8d9efd1cde9426692c73fe40437d0ae3"><div class="ttname"><a href="group__monitor.html#ga8d9efd1cde9426692c73fe40437d0ae3">GLFWmonitor</a></div><div class="ttdeci">struct GLFWmonitor GLFWmonitor</div><div class="ttdoc">Opaque monitor object.</div><div class="ttdef"><b>Definition</b> glfw3.h:1183</div></div>
+<div class="ttc" id="agroup__monitor_html_ga8d9efd1cde9426692c73fe40437d0ae3"><div class="ttname"><a href="group__monitor.html#ga8d9efd1cde9426692c73fe40437d0ae3">GLFWmonitor</a></div><div class="ttdeci">struct GLFWmonitor GLFWmonitor</div><div class="ttdoc">Opaque monitor object.</div><div class="ttdef"><b>Definition</b> glfw3.h:1391</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">monitor</td><td>The monitor that was connected or disconnected. </td></tr>
@@ -381,7 +381,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This function returns the position, in screen coordinates, of the upper-left corner of the work area of the specified monitor along with the work area size in screen coordinates. The work area is defined as the area of the monitor not occluded by the operating system task bar where present. If no task bar exists then the work area is the monitor resolution in screen coordinates.</p>
+<p>This function returns the position, in screen coordinates, of the upper-left corner of the work area of the specified monitor along with the work area size in screen coordinates. The work area is defined as the area of the monitor not occluded by the window system task bar where present. If no task bar exists then the work area is the monitor resolution in screen coordinates.</p>
 <p>Any or all of the position and size arguments may be <code>NULL</code>. If an error occurs, all non-<code>NULL</code> position and size arguments will be set to zero.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -432,7 +432,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>This function returns the size, in millimetres, of the display area of the specified monitor.</p>
-<p>Some systems do not provide accurate monitor size information, either because the monitor <a href="https://en.wikipedia.org/wiki/Extended_display_identification_data">EDID</a> data is incorrect or because the driver does not report it accurately.</p>
+<p>Some platforms do not provide accurate monitor size information, either because the monitor <a href="https://en.wikipedia.org/wiki/Extended_display_identification_data">EDID</a> data is incorrect or because the driver does not report it accurately.</p>
 <p>Any or all of the size arguments may be <code>NULL</code>. If an error occurs, all non-<code>NULL</code> size arguments will be set to zero.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -492,6 +492,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> Fractional scaling information is not yet available for monitors, so this function only returns integer content scales.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="monitor_guide.html#monitor_scale">Content scale</a> </dd>
 <dd>
@@ -750,8 +751,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#gaaf2ef9aa8202c2b82ac2d921e554c687">GLFW_INVALID_VALUE</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> Gamma handling is a privileged protocol, this function will thus never be implemented and emits <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#gaaf2ef9aa8202c2b82ac2d921e554c687">GLFW_INVALID_VALUE</a>, <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> and <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a> (see remarks).</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> Gamma handling is a privileged protocol, this function will thus never be implemented and emits <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a>.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="monitor_guide.html#monitor_gamma">Gamma ramp</a></dd></dl>
 <dl class="section since"><dt>Since</dt><dd>Added in version 3.0. </dd></dl>
@@ -781,8 +782,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The current gamma ramp, or <code>NULL</code> if an <a class="el" href="intro_guide.html#error_handling">error</a> occurred.</dd></dl>
-<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> Gamma handling is a privileged protocol, this function will thus never be implemented and emits <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> while returning <code>NULL</code>.</dd></dl>
+<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> and <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a> (see remarks).</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><b>Wayland:</b> Gamma handling is a privileged protocol, this function will thus never be implemented and emits <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a> while returning <code>NULL</code>.</dd></dl>
 <dl class="section user"><dt>Pointer lifetime</dt><dd>The returned structure and its arrays are allocated and freed by GLFW. You should not free them yourself. They are valid until the specified monitor is disconnected, this function is called again for that monitor or the library is terminated.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="monitor_guide.html#monitor_gamma">Gamma ramp</a></dd></dl>
@@ -825,12 +826,12 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a> and <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<dl class="section user"><dt>Errors</dt><dd>Possible errors include <a class="el" href="group__errors.html#ga2374ee02c177f12e1fa76ff3ed15e14a">GLFW_NOT_INITIALIZED</a>, <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a> and <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a> (see remarks).</dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>The size of the specified gamma ramp should match the size of the current ramp for that monitor.</dd>
 <dd>
 <b>Windows:</b> The gamma ramp size must be 256.</dd>
 <dd>
-<b>Wayland:</b> Gamma handling is a privileged protocol, this function will thus never be implemented and emits <a class="el" href="group__errors.html#gad44162d78100ea5e87cdd38426b8c7a1">GLFW_PLATFORM_ERROR</a>.</dd></dl>
+<b>Wayland:</b> Gamma handling is a privileged protocol, this function will thus never be implemented and emits <a class="el" href="group__errors.html#ga526fba20a01504a8086c763b6ca53ce5">GLFW_FEATURE_UNAVAILABLE</a>.</dd></dl>
 <dl class="section user"><dt>Pointer lifetime</dt><dd>The specified gamma ramp is copied before this function returns.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function must only be called from the main thread.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="monitor_guide.html#monitor_gamma">Gamma ramp</a></dd></dl>
@@ -841,7 +842,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <address class="footer">
 <p>
-Last update on Thu Dec 14 2023 for GLFW 3.3.9
+Last update on Fri Feb 23 2024 for GLFW 3.4.0
 </p>
 </address>
 </body>

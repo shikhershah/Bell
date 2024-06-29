@@ -29,25 +29,33 @@ INCLUDE_PATH += -I$(EXT_LOG_DIR)
 INCLUDE_PATH += -I$(EXT_GLAD_DIR)
 INCLUDE_PATH += -I$(EXT_GLFW_DIR)
 INCLUDE_PATH += -I$(EXT_RENDER_DIR)
+INCLUDE_PATH += -I$(EXT_RENDER_DIR)/backends
 INCLUDE_PATH += -I$(SANDBOX_DIR)
 INCLUDE_PATH += -I$(SANDBOX_BIN)
+#INCLUDE_PATH += -I/opt/homebrew/include
 
 #/Users/shikhershah/Projects/GameEngine/Bell/bin
+LIBS :=
+LIBS += -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
+#LIBS += -L/opt/homebrew/lib
+#LIBS += -lglfw3
+#LIBS += -lglfw
 
 CFLAGS :=
 CFLAGS += $(INCLUDE_PATH)
 CFLAGS += -std=c++11
-#CFLAGS += -framework Cocoa -framework OpenGL -framework IOKit 
 
 
-export CFLAGS BELL_CORE BELL_EVENTS BELL_RENDER BELL_PLATFORM BELL_BIN BELL_LIB EXT_LOG_DIR EXT_GLAD_DIR EXT_GLFW_DIR SANDBOX_DIR SANDBOX_BIN 
+
+
+export CFLAGS LIBS BELL_CORE BELL_EVENTS BELL_RENDER BELL_PLATFORM BELL_BIN BELL_LIB EXT_LOG_DIR EXT_GLAD_DIR EXT_GLFW_DIR EXT_DIR EXT_RENDER_DIR SANDBOX_DIR SANDBOX_BIN 
 
 .PHONY: all clean
 
 all:
 	 @$(MAKE) -C $(BELL_DIR) -f Bell.mk
 	 @$(MAKE) -C $(SANDBOX_DIR) -f SandBox.mk
-	 g++ $(BELL_BIN)/Bell.so $(SANDBOX_BIN)/*.o $(CFLAGS) -o output
+	 g++ $(BELL_BIN)/Bell.so $(SANDBOX_BIN)/*.o $(CFLAGS) $(LIBS) -o output
 
 
 

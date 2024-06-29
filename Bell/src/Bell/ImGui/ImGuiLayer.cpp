@@ -63,7 +63,9 @@ namespace Bell
       ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplGlfw_NewFrame();
       ImGui::NewFrame();
-      ImGui::ShowDemoWindow();
+
+      static bool show = true;
+      ImGui::ShowDemoWindow(&show);
 
   //    Engine_INFO("IMGUI show demo window");
 

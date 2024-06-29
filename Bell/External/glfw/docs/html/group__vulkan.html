@@ -340,7 +340,9 @@ Functions</h2></td></tr>
 <dd>
 <b>macOS:</b> GLFW prefers the <code>VK_EXT_metal_surface</code> extension, with the <code>VK_MVK_macos_surface</code> extension as a fallback. The name of the selected extension, if any, is included in the array returned by <a class="el" href="group__vulkan.html#ga99ad342d82f4a3421e2864978cb6d1d6">glfwGetRequiredInstanceExtensions</a>.</dd>
 <dd>
-<b>macOS:</b> This function creates and sets a <code>CAMetalLayer</code> instance for the window content view, which is required for MoltenVK to function.</dd></dl>
+<b>macOS:</b> This function creates and sets a <code>CAMetalLayer</code> instance for the window content view, which is required for MoltenVK to function.</dd>
+<dd>
+<b>X11:</b> By default GLFW prefers the <code>VK_KHR_xcb_surface</code> extension, with the <code>VK_KHR_xlib_surface</code> extension as a fallback. You can make <code>VK_KHR_xlib_surface</code> the preferred extension by setting the <a class="el" href="intro_guide.html#GLFW_X11_XCB_VULKAN_SURFACE_hint">GLFW_X11_XCB_VULKAN_SURFACE</a> init hint. The name of the selected extension, if any, is included in the array returned by <a class="el" href="group__vulkan.html#ga99ad342d82f4a3421e2864978cb6d1d6">glfwGetRequiredInstanceExtensions</a>.</dd></dl>
 <dl class="section user"><dt>Thread safety</dt><dd>This function may be called from any thread. For synchronization details of Vulkan objects, see the Vulkan specification.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="vulkan_guide.html#vulkan_surface">Creating a Vulkan window surface</a> </dd>
 <dd>
@@ -352,7 +354,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <address class="footer">
 <p>
-Last update on Thu Dec 14 2023 for GLFW 3.3.9
+Last update on Fri Feb 23 2024 for GLFW 3.4.0
 </p>
 </address>
 </body>
