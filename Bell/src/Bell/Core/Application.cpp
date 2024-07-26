@@ -42,6 +42,15 @@ namespace Bell
          glClear(GL_COLOR_BUFFER_BIT);
          
          imGuiLayer->Begin();
+        /*{
+					Engine_INFO("LayerStack OnImGuiRender");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+			}*/
+         ImDrawList* DrawList = ImGui::GetWindowDrawList();
+         DrawList->AddTriangleFilled(ImVec2(50,100), ImVec2(150,100), ImVec2(100,50), ImColor(2500,0,0));
+        
 
          imGuiLayer->End();
 

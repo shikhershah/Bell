@@ -44,6 +44,9 @@ namespace Bell
       windowData.Width = props.Width;
       windowData.Height = props.Height;
 
+      Engine_TRACE("Props Width: {0}", props.Width);
+      Engine_TRACE("Props Height: {0}", props.Height);
+
       if (!glfwInit())
          exit(EXIT_FAILURE);
 
@@ -57,6 +60,9 @@ namespace Bell
 
       m_window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), NULL, NULL);
       Engine_TRACE("Window Created");
+
+      //Maximize window without fullscreen. 
+      glfwMaximizeWindow(m_window);
 
        if (!m_window)
       {

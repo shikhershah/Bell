@@ -20,7 +20,7 @@ namespace Bell
       ImGuiIO& io = ImGui::GetIO();
       io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
       //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-      //io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
+      io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
 
 
       Application& app = Application::Get();
@@ -50,7 +50,7 @@ namespace Bell
          ImGuiIO& io = ImGui::GetIO();
 
          event.Handled |= event.IsEventType(Mouse) & io.WantCaptureMouse;
-	 event.Handled |= event.IsEventType(Keyboard) & io.WantCaptureKeyboard;
+	      event.Handled |= event.IsEventType(Keyboard) & io.WantCaptureKeyboard;
 
       }
    
@@ -66,6 +66,15 @@ namespace Bell
 
       static bool show = true;
       ImGui::ShowDemoWindow(&show);
+
+      //ImVec2 startingPos;
+
+      //startingPos.x = -414.59;
+      //startingPos.y = 111.047;
+
+      //ImGui::SetWindowPos(startingPos, true);
+
+      
 
   //    Engine_INFO("IMGUI show demo window");
 

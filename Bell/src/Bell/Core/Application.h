@@ -26,6 +26,7 @@ namespace Bell
          bool OnWindowClose(WindowCloseEvent& e);
 
           ImGuiLayer* imGuiLayer; 
+          LayerStack m_LayerStack;
 
       public:
        
