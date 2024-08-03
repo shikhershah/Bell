@@ -7,7 +7,7 @@
 #include "../Events/MouseEvent.h"
 #include "../Events/KeyEvent.h"
 
-
+#include "Bell/Platform/OpenGL/OpenGLContext.h" 
 
 namespace Bell
 {
@@ -44,8 +44,10 @@ namespace Bell
       windowData.Width = props.Width;
       windowData.Height = props.Height;
 
-      Engine_TRACE("Props Width: {0}", props.Width);
-      Engine_TRACE("Props Height: {0}", props.Height);
+      Engine_INFO("Props Width: {0}", props.Width);
+      Engine_INFO("Props Height: {0}", props.Height);
+
+      //m_Context = new OpenGLContext(m_window);
 
       if (!glfwInit())
          exit(EXIT_FAILURE);
@@ -61,6 +63,8 @@ namespace Bell
       m_window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), NULL, NULL);
       Engine_TRACE("Window Created");
 
+     
+
       //Maximize window without fullscreen. 
       glfwMaximizeWindow(m_window);
 
@@ -69,14 +73,19 @@ namespace Bell
          glfwTerminate();
          exit(EXIT_FAILURE);
       }
-
-      /* Make the window's context current */
+      
+      //m_Context->Init();
+      //glfwSetWindowUserPointer(m_window, &windowData);
+      /* Make the window's context current 
+       * moved to OpenGLContext
+       */
       glfwMakeContextCurrent(m_window);
       glfwSetWindowUserPointer(m_window, &windowData);
       //initialize GLAD: load all OpenGL functions
       int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
       Engine_INFO(GLFW_OPENGL_CORE_PROFILE);
+      
 
       SetVSync(true);
     
@@ -195,6 +204,8 @@ namespace Bell
    {
       glfwPollEvents();
       glfwSwapBuffers(m_window);
+
+      //m_Context->SwapBuffer();
    }
 
    void MacWindow::SetVSync(bool Enabled)

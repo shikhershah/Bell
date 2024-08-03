@@ -6,6 +6,8 @@
 
 #include "Bell/Core/Window.h"
 
+#include "Bell/Renderer/GraphicsContext.h" 
+
 
 namespace Bell
 {
@@ -19,7 +21,8 @@ namespace Bell
          virtual void Init(const WindowProperties& props);
          virtual void Close();
 
-         GLFWwindow* m_window; 
+         GLFWwindow* m_window;
+         GraphicsContext* m_Context;
 
          struct WindowData
          {
@@ -33,7 +36,7 @@ namespace Bell
 
          WindowData windowData;
 
-      public:
+         public:
 
          MacWindow(const WindowProperties& props); //Pass by const reference 
          virtual ~MacWindow();
