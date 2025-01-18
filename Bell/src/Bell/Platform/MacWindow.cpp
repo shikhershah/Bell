@@ -47,7 +47,7 @@ namespace Bell
       Engine_INFO("Props Width: {0}", props.Width);
       Engine_INFO("Props Height: {0}", props.Height);
 
-      //m_Context = new OpenGLContext(m_window);
+      
 
       if (!glfwInit())
          exit(EXIT_FAILURE);
@@ -66,23 +66,25 @@ namespace Bell
      
 
       //Maximize window without fullscreen. 
-      glfwMaximizeWindow(m_window);
+      //glfwMaximizeWindow(m_window);
 
        if (!m_window)
       {
          glfwTerminate();
          exit(EXIT_FAILURE);
       }
+
+      m_Context = new OpenGLContext(m_window);
+      m_Context->Init();
       
-      //m_Context->Init();
       //glfwSetWindowUserPointer(m_window, &windowData);
       /* Make the window's context current 
        * moved to OpenGLContext
        */
-      glfwMakeContextCurrent(m_window);
+      //glfwMakeContextCurrent(m_window);
       glfwSetWindowUserPointer(m_window, &windowData);
       //initialize GLAD: load all OpenGL functions
-      int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+      //int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
       Engine_INFO(GLFW_OPENGL_CORE_PROFILE);
       
@@ -203,9 +205,9 @@ namespace Bell
    void MacWindow::OnUpdate()
    {
       glfwPollEvents();
-      glfwSwapBuffers(m_window);
+      //glfwSwapBuffers(m_window);
 
-      //m_Context->SwapBuffer();
+      m_Context->SwapBuffer();
    }
 
    void MacWindow::SetVSync(bool Enabled)

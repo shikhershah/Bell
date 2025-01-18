@@ -5,6 +5,7 @@
 #include "Logging.h"
 #include "Input.h"
 
+#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
 
@@ -22,8 +23,62 @@ namespace Bell
       m_window->SetEventCallback(BELL_BIND_EVENT(Application::OnEvent));
 
       imGuiLayer = new ImGuiLayer();
-      Engine_INFO("Push imgui overlay");
       PushOverlay(imGuiLayer);
+      Engine_INFO("Push imgui overlay");
+      
+      //Draw a triangle
+      glGenVertexArrays(1, &VertexArray);
+      glBindVertexArray(VertexArray);
+
+      glGenBuffers(1, &VertexBuffer);
+      glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
+
+      float vertices[3 * 3]
+      {
+         -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f
+      };
+
+      
+      glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+      glEnableVertexAttribArray(0);
+      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), nullptr);
+
+      glGenBuffers(1, &IndexBuffer);
+      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
+
+      unsigned int indices[] = {0,1,2};
+      glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+      std::string VertexSrc = R"(
+         #version 330 core
+
+         layout(location = 0) in vec3 a_Position;
+
+         void main()
+         {
+            gl_Position = vec4(a_Position, 1.0);
+         }
+      
+      
+      )";
+
+      std::string FragmentSrc = R"(
+         #version 330 core
+
+         layout(location = 0) out vec4 color;
+
+         void main()
+         {
+           color = vec4(0.8, 0.2, 0.3, 1.0);
+         }
+      
+      
+      )";
+      
+      ShaderPtr.reset(new Shader(VertexSrc, FragmentSrc));
    }
 
    Application::~Application()
@@ -38,20 +93,30 @@ namespace Bell
      // Engine_TRACE(e);
       while(m_Running)
       {
-         glClearColor(1,0,1,1);
+         /* float time = Time::GetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time; */
+
+         glClearColor(0.1f,0.1f,0.1f,0.0f);
          glClear(GL_COLOR_BUFFER_BIT);
+
          
+
+         glBindVertexArray(VertexArray);
+         ShaderPtr->Bind();
+         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+         Engine_INFO("Draw Triangle");
+
+         for (Layer* layer : m_LayerStack)
+						layer->OnUpdate();
+
          imGuiLayer->Begin();
-        /*{
+        {
 					Engine_INFO("LayerStack OnImGuiRender");
 
 					for (Layer* layer : m_LayerStack)
 						layer->OnImGuiRender();
-			}*/
-         ImDrawList* DrawList = ImGui::GetWindowDrawList();
-         DrawList->AddTriangleFilled(ImVec2(50,100), ImVec2(150,100), ImVec2(100,50), ImColor(2500,0,0));
-        
-
+			}
          imGuiLayer->End();
 
          m_window->OnUpdate();

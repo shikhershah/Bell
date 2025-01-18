@@ -74,8 +74,6 @@ namespace Bell
 
       //ImGui::SetWindowPos(startingPos, true);
 
-      
-
   //    Engine_INFO("IMGUI show demo window");
 
    }

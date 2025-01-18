@@ -10,7 +10,7 @@
 
 #include "Bell/ImGui/ImGuiLayer.h"
 
-
+#include "Bell/Renderer/Shader.h"
 namespace Bell
 {
 
@@ -25,8 +25,10 @@ namespace Bell
          static Application* Instance;
          bool OnWindowClose(WindowCloseEvent& e);
 
-          ImGuiLayer* imGuiLayer; 
-          LayerStack m_LayerStack;
+         ImGuiLayer* imGuiLayer; 
+         LayerStack m_LayerStack;
+
+         float m_LastFrameTime = 0.0f;
 
       public:
        
@@ -44,6 +46,10 @@ namespace Bell
 
          Window& GetWindow() { return *m_window; }
          static Application& Get() { return *Instance; }
+
+         //Draw a triangle
+         unsigned int VertexArray, VertexBuffer, IndexBuffer;
+         std::unique_ptr<Shader> ShaderPtr;
    };
 
    
