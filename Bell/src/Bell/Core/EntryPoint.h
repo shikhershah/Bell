@@ -17,6 +17,7 @@ int main()
    Engine_TRACE("Hello");
 
    Bell::Application* app = Bell::CreateApp();
+   Engine_TRACE("Start Running App");
    app->Run();
 
    return 0;

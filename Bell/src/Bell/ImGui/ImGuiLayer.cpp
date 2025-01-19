@@ -67,12 +67,12 @@ namespace Bell
       static bool show = true;
       ImGui::ShowDemoWindow(&show);
 
-      //ImVec2 startingPos;
+      ImVec2 startingPos;
 
-      //startingPos.x = -414.59;
-      //startingPos.y = 111.047;
+      startingPos.x = -414.59;
+      startingPos.y = 111.047;
 
-      //ImGui::SetWindowPos(startingPos, true);
+      ImGui::SetWindowPos(startingPos, true);
 
   //    Engine_INFO("IMGUI show demo window");
 

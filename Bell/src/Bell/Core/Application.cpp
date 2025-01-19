@@ -39,7 +39,7 @@ namespace Bell
          0.5f, -0.5f, 0.0f,
          0.0f,  0.5f, 0.0f
       };
-
+      
       
       glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -51,7 +51,7 @@ namespace Bell
 
       unsigned int indices[] = {0,1,2};
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
+      
       std::string VertexSrc = R"(
          #version 330 core
 
@@ -79,6 +79,7 @@ namespace Bell
       )";
       
       ShaderPtr.reset(new Shader(VertexSrc, FragmentSrc));
+      
    }
 
    Application::~Application()
@@ -88,7 +89,7 @@ namespace Bell
  
    void Application::Run()
    {
-
+      Engine_TRACE("Reached Run App");
      // WindowResize e (100,100);
      // Engine_TRACE(e);
       while(m_Running)
@@ -96,17 +97,17 @@ namespace Bell
          /* float time = Time::GetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time; */
-
+         Engine_TRACE("Start Running App");
          glClearColor(0.1f,0.1f,0.1f,0.0f);
          glClear(GL_COLOR_BUFFER_BIT);
 
          
-
+         
          glBindVertexArray(VertexArray);
          ShaderPtr->Bind();
          glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-         Engine_INFO("Draw Triangle");
-
+         Engine_TRACE("Draw Triangle");
+         
          for (Layer* layer : m_LayerStack)
 						layer->OnUpdate();
 
