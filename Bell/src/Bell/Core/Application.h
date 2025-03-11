@@ -11,6 +11,8 @@
 #include "Bell/ImGui/ImGuiLayer.h"
 
 #include "Bell/Renderer/Shader.h"
+#include "Bell/Renderer/Buffer.h"
+
 namespace Bell
 {
 
@@ -30,7 +32,7 @@ namespace Bell
 
          float m_LastFrameTime = 0.0f;
 
-      public:
+         public:
        
          Application();
          virtual ~Application();
@@ -48,7 +50,12 @@ namespace Bell
          static Application& Get() { return *Instance; }
 
          //Draw a triangle
-         unsigned int VertexArray, VertexBuffer, IndexBuffer;
+         unsigned int VertexArray;
+         //unsigned int VertexBuffer;
+         //unsigned int IndexBuffer;
+         
+         std::unique_ptr<VertexBuffer> VertexBuffPtr;
+         std::unique_ptr<IndexBuffer> IndexBuffPtr;
          std::unique_ptr<Shader> ShaderPtr;
    };
 

@@ -68,4 +68,5 @@ all:
 
 clean:
 	rm $(BELL_BIN)/*.o
+	rm $(SANDBOX_BIN)/*.o
 	

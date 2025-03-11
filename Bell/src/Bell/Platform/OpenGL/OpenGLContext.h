@@ -1,6 +1,9 @@
 #ifndef OPENGLCONTEXT_H
 #define OPENGLCONTEXT_H
 
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+
 
 #include "Bell/Renderer/GraphicsContext.h"
 

@@ -30,8 +30,8 @@ namespace Bell
       glGenVertexArrays(1, &VertexArray);
       glBindVertexArray(VertexArray);
 
-      glGenBuffers(1, &VertexBuffer);
-      glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
+      //glGenBuffers(1, &VertexBuffer);
+      //glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
 
       float vertices[3 * 3]
       {
@@ -39,19 +39,21 @@ namespace Bell
          0.5f, -0.5f, 0.0f,
          0.0f,  0.5f, 0.0f
       };
-      
-      
-      glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+     
+      VertexBuffPtr.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+      Engine_TRACE("Created VertexBuffer");
+     //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
       glEnableVertexAttribArray(0);
       glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), nullptr);
 
-      glGenBuffers(1, &IndexBuffer);
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
+      //glGenBuffers(1, &IndexBuffer);
+      //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
 
       unsigned int indices[] = {0,1,2};
-      glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-      
+      IndexBuffPtr.reset(IndexBuffer::Create(indices, sizeof(indices)));
+      //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+      Engine_TRACE("Reached Create IndexBuffer");
       std::string VertexSrc = R"(
          #version 330 core
 
@@ -79,7 +81,7 @@ namespace Bell
       )";
       
       ShaderPtr.reset(new Shader(VertexSrc, FragmentSrc));
-      
+      //Engine_TRACE("Reached end of Application constructor");
    }
 
    Application::~Application()
@@ -90,15 +92,16 @@ namespace Bell
    void Application::Run()
    {
       Engine_TRACE("Reached Run App");
-     // WindowResize e (100,100);
-     // Engine_TRACE(e);
+      //WindowResize e(100,100);
+      //Engine_TRACE(e);
       while(m_Running)
       {
          /* float time = Time::GetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time; */
          Engine_TRACE("Start Running App");
-         glClearColor(0.1f,0.1f,0.1f,0.0f);
+         //glClearColor(0.1f,0.1f,0.1f,0.0f);
+         glClearColor(1.0f,1.0f,1.0f,1.0f);
          glClear(GL_COLOR_BUFFER_BIT);
 
          

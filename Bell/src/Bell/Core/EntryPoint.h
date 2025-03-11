@@ -14,7 +14,7 @@ int main()
 
    //spdlog::info("Welcome to spdlog!");
    Bell::Log::init();
-   Engine_TRACE("Hello");
+   Engine_TRACE("Reached CreateApp");
 
    Bell::Application* app = Bell::CreateApp();
    Engine_TRACE("Start Running App");

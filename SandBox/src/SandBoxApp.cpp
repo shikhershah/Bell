@@ -3,6 +3,8 @@
 #include <Bell.h>
 #include <Bell/Core/EntryPoint.h>
 
+#include "ExampleLayer.h"
+
 #include <glm/vec3.hpp> // glm::vec3
 #include <glm/vec4.hpp> // glm::vec4
 #include <glm/mat4x4.hpp> // glm::mat4
@@ -30,7 +32,8 @@ class SandBox : public Bell::Application
       SandBox()
       {
 
-        // Engine_TRACE("reached SandBox");
+         Engine_TRACE("reached SandBox");
+         //PushStack(new ExampleLayer());
       }
 
       ~SandBox(){}
@@ -42,8 +45,6 @@ class SandBox : public Bell::Application
 
 Bell::Application* Bell::CreateApp()
 {
-
-
 
    return new SandBox();
 }
