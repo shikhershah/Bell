@@ -11,12 +11,24 @@ namespace Bell
         private:
             uint32_t VertexBufferID;
 
+            BufferLayout Layout;
+
         public:
             OpenGLVertexBuffer(float* vertices, uint32_t size);
             virtual ~OpenGLVertexBuffer();
 
             virtual void Bind() const override;
             virtual void Unbind() const override;
+
+            virtual const BufferLayout& GetLayout() const override
+            {
+                return Layout;
+            }
+            virtual void SetLayout(const BufferLayout& layout) override 
+            {
+                Layout = layout;
+            }
+
 
     };
 

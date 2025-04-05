@@ -13,6 +13,29 @@
 
 namespace Bell
 {
+   static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+   {
+      switch (type)
+      {
+         case ShaderDataType::Int:     return GL_INT;
+         case ShaderDataType::Int2:    return GL_INT;
+         case ShaderDataType::Int3:    return GL_INT;
+         case ShaderDataType::Int4:    return GL_INT;
+         case ShaderDataType::Float:   return GL_FLOAT;
+         case ShaderDataType::Float2:  return GL_FLOAT;
+         case ShaderDataType::Float3:  return GL_FLOAT;
+         case ShaderDataType::Float4:  return GL_FLOAT;
+         case ShaderDataType::Mat3:    return GL_FLOAT; // 3* float3
+         case ShaderDataType::Mat4:    return GL_FLOAT; // 4* float4
+         case ShaderDataType::Bool:    return GL_BOOL;
+      
+         default:
+            break;
+      }
+
+      return 0;
+   }
+
    Application* Application::Instance = nullptr;
 
    Application::Application()
@@ -33,20 +56,40 @@ namespace Bell
       //glGenBuffers(1, &VertexBuffer);
       //glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
 
-      float vertices[3 * 3]
+      float vertices[3 * 7]
       {
-         -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
+         -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+         0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f,1.0f,
+         0.0f,  0.5f, 0.0f, 0.7f, -0.2f, 0.0f,1.0f
       };
      
       VertexBuffPtr.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
       Engine_TRACE("Created VertexBuffer");
      //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-      glEnableVertexAttribArray(0);
-      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), nullptr);
+     {
+     BufferLayout layout =
+     {
+         {ShaderDataType::Float3, "a_Position"},
+         {ShaderDataType::Float4, "a_Color"}
+     };
 
+      VertexBuffPtr->SetLayout(layout);
+
+     }
+
+     uint32_t index = 0;
+     for (const auto& elements : VertexBuffPtr->GetLayout())
+     {
+         glEnableVertexAttribArray(index);
+         glVertexAttribPointer(index,
+            elements.GetComponentCount(),
+            ShaderDataTypeToOpenGLBaseType(elements.ShaderType),
+            GL_FALSE,VertexBuffPtr->GetLayout().GetStride(),
+            (const void*)elements.Offset);
+         index++;
+     }
+     
       //glGenBuffers(1, &IndexBuffer);
       //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
 
@@ -58,9 +101,15 @@ namespace Bell
          #version 330 core
 
          layout(location = 0) in vec3 a_Position;
+         layout(location = 1) in vec4 a_Color;
+
+         out vec3 v_Position;
+         out vec4 v_Color;
 
          void main()
          {
+            v_Position = a_Position;
+            v_Color = a_Color;
             gl_Position = vec4(a_Position, 1.0);
          }
       
@@ -72,9 +121,13 @@ namespace Bell
 
          layout(location = 0) out vec4 color;
 
+         in vec3 v_Position;
+         in vec4 v_Color;
+
          void main()
          {
            color = vec4(0.8, 0.2, 0.3, 1.0);
+           color = v_Color;
          }
       
       
